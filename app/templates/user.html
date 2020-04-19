@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+    <h1>User: {{ user.username }}</h1>
+
+    {% if (user.role != "Admin" or current_user.role == "Owner") and user.username != current_user.username%}
+      <h3>Delete user</h3>
+        <form action="" method="post" novalidate>
+          {{ form.hidden_tag() }}
+          <p>
+            {{ form.confirm1_1.label }}<br>
+            {{ form.confirm1_1(size=32) }}
+            {% for error in form.confirm1_1.errors %}
+              <span style="color: red;">{{error}}</span>
+            {% endfor %}
+          </p>
+          <p>
+            {{ form.confirm1_2.label }}<br>
+            {{ form.confirm1_2(size=32) }}
+            {% for error in form.confirm1_2.errors %}
+              <span style="color: red;">{{error}}</span>
+            {% endfor %}
+          </p>
+          <p>{{ form.submit() }}</p>
+        </form><br>
+
+      <h3>Change role</h3>
+      <form action="" method="post" novalidate>
+        {{ form2.hidden_tag() }}
+        <p>
+          {{ form2.radio_buttons.label }}<br>
+          {{ form2.radio_buttons(size=32) }}
+          {% for error in form2.radio_buttons.errors %}
+            <span style="color: red;">{{error}}</span>
+          {% endfor %}
+        </p>
+        <p>
+          {{ form2.confirm2_1.label }}<br>
+          {{ form2.confirm2_1(size=32) }}
+          {% for error in form2.confirm2_1.errors %}
+            <span style="color: red;">{{error}}</span>
+          {% endfor %}
+        </p>
+        <p>
+          {{ form2.confirm2_2.label }}<br>
+          {{ form2.confirm2_2(size=32) }}
+          {% for error in form2.confirm2_2.errors %}
+            <span style="color: red;">{{error}}</span>
+          {% endfor %}
+        </p>
+        <p>{{ form2.submit2() }}</p>
+      </form>
+    {% elif user.username == current_user.username %}
+    <div>
+      <h3>Change your profile page</h3>
+      <h5>Make a post</h5>
+      <form action="" method="post" novalidate>
+        {{ form3.hidden_tag() }}
+        <p>
+          {{ form3.body(size=32, class="post_body")}}
+          {% for error in form3.body.errors %}
+            <span style="color: red;">{{error}}</span>
+          {% endfor %}
+        </p>
+        <p> {{form3.submit3() }} </p>
+      </form>
+    </div>
+    {% endif %}
+
+
+</div>
+{% endblock %}

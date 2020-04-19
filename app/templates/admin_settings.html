@@ -1,0 +1,14 @@
+{% extends "base.html"%}
+
+{% block content %}
+    <h3>Members:</h3>
+    <ul>
+      {% for u in users %}
+        <li><p>{{u.username}}(id:{{u.id}}): {{u.role}}</p></li>
+        <ul>
+          <li style="list-style-type:none;" ><a href="{{ url_for('user', username=u.username) }}">
+            Edit user</a></li>
+        </ul>
+      {% endfor %}
+    </ul>
+{% endblock %}

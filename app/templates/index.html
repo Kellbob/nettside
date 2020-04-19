@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="grid">
+    <div class="col">
+      <h1 class="col">Hi, {{current_user.username}}!</h1>
+    </div>
+    <div class="post col">
+      {% for post in Post.query.all() %}
+      <div class="col2">
+        <p>{{ post.author.username }}<p>
+        <p class="main_post">{{ post.body }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  <div>
+{% endblock %}%

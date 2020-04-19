@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }}  |  Tryggcraft</title>
+        {% else %}
+        <title>Tryggcraft</title>
+        {% endif %}
+        <link href="{{ url_for('static',filename='css/index.css')}}" rel="stylesheet" type="text/css">
+        <style>
+            .header-content{
+                padding-bottom: 0.5%;
+                background-color: rgb(24, 24, 24);
+                position: fixed;
+                width: 100%;
+                top: 0;
+            }
+            .header{
+                box-sizing: content-box;
+                padding: 1%;
+                padding-left: 2.5%;
+                word-spacing: 2.5px;
+                font-family: 'Courier New', Courier, monospace;
+                color: lightgray !important;
+                font-size: 100%;
+                background-image: url("{{url_for('static',filename='img/bg.png')}}");
+            }
+
+            a{
+                color: inherit;
+                text-decoration: none;
+            }
+
+            body{
+                background-image: url("{{url_for('static',filename='img/bg.png')}}");
+                margin: 0;
+                padding: 0;
+            }
+            .content{
+                font-family: 'Courier New', Courier, monospace;
+                color: lightgray;
+                margin-left: 2.5%;
+                margin-top: 5%;
+            }
+            .post_body{
+              min-height: 200px;
+              min-width: 500px;
+              resize: none;
+            }
+            .post{
+              margin-top: 100px;
+            }
+            .grid{
+              display: grid;
+              grid-gap: 10px;
+              grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            .col{
+              height: 100vh;
+
+            }
+            .col2{
+              height: 25vh;
+
+            }
+            .main_post{
+              background-color: rgba(0, 0, 0, 0.2);
+            }
+        </style>
+        <script>
+        $('textarea').autoResize();
+        </script>
+    </head>
+    <body>
+        <div class="header-content">
+            <div class="header">
+
+                {% if current_user.is_anonymous %}
+                Tryggcraft:
+                {% else %}
+                {{ current_user.username }}:
+                {% endif %}
+                <a href="{{ url_for('index')}} " class="header" >Home</a>
+                <a href="{{ url_for('user', username=current_user.username)}}" class="header">profile</a>
+                {% if om_admin %}
+                <a href="{{ url_for('admin_settings')}}" class="header">Admin settings</a>
+                <a href="{{ url_for('slutt')}}" class="header">Shut down</a>
+                {% endif%}
+                {% if current_user.is_anonymous %}
+                <a href="{{ url_for('login') }}" class="header-login header">Login</a>
+                {% else %}
+                <a href="{{ url_for('logout') }}" class="header-login header">Logout</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="content">
+            {% block content %}{% endblock%}
+        </div>
+    </body>
+</html>
